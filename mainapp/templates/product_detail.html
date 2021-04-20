@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+    <nav aria-label="breadcrumb" class="mt-5">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'base' %}">Главная</a></li>
+        <li class="breadcrumb-item"><a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
+      </ol>
+    </nav>
+<div class="row">
+    <div class="col-md-4">
+        <img src="{{ product.image.url }}" class="img-fluid">
+    </div>
+    <div class="col-md-8">
+        <h3>{{ product.title }}</h3>
+        <p>Цена: {{ product.price }} руб.</p>
+        <p>Описание: {{ product.description }}</p>
+        <select name="wear_size">
+            <option selected="selected" disabled>Выберите размер: </option>
+            {% for size_v in size %}
+                <option value="{{ size_v }}">{{ size_v }}</option>
+            {% endfor %}
+        </select>
+        <hr>
+        <a href="{% url 'add_to_cart' slug=product.slug %}"><button class="btn btn-danger">Добавить в корзину</button></a>
+    </div>
+    <p class="mt-4">О товаре:</p>
+    <table class="table">
+      <tbody>
+      {% for f_name, f_value in product.get_features.items %}
+        <tr>
+          <th scope="row">{{ f_name }}</th>
+          <td>{{ f_value }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+</div>
+
+{% endblock content %}

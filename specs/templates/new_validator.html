@@ -1,0 +1,21 @@
+{% extends 'product_features.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="category-validator-div">
+    <label for="category-validators-id">Категория</label>
+    <select class="form-select" required name="category-validators" id="category-validators-id" aria-label="Default select example">
+    <option selected>---</option>
+        {% for category in categories %}
+          <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="feature-validator-div" style="display: None; padding-top: 20px;">
+</div>
+<div class="feature-value-div" style="padding-top: 20px;">
+
+</div>
+<div class="errors">
+
+</div>
+{% endblock %}

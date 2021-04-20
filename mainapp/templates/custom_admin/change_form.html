@@ -1,0 +1,9 @@
+{% extends 'admin/change_form.html' %}
+
+{% block content %}
+<a href="/product-specs/"><input type="submit" value="Создать характеристики для товара" name="_make-unique"></a>
+{{ block.super }}
+{% endblock content %}
+{% block submit_buttons_bottom %}
+    {{ block.super }}
+{% endblock %}
