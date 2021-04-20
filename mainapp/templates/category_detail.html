@@ -34,8 +34,11 @@
           <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
         </h4>
         <h5>{{ product.price }} руб.</h5>
+          {% if request.user.is_authenticated  %}
               <a href="{% url 'add_to_cart' slug=product.slug %}">
-      <button class="btn btn-danger">Добавить в корзину</button>
+                  <button class="btn btn-danger">Добавить в корзину</button>
+              </a>
+          {% endif %}
       </div>
     </div>
   </div>

@@ -2,6 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <h3 class="text-center mt-5 mb-5">Ваша корзина {% if not cart.products.count %}пуста{% endif %}</h3>
+    {% if not request.user.is_authenticated %}<h3 class="text-center mt-5 mb-5">Вы не авторизованы, чтобы добавить товар в корзину <a href="{% url 'login' %}">Авторизуйтесь</a> или <a href="{% url 'registration' %}">Зарегистрируйтесь</a></h3>{% endif %}
 {% if messages %}
     {% for message in messages %}
       <div class="alert alert-success alert-dismissible fade show" role="alert">
