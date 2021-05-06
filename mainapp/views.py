@@ -35,6 +35,7 @@ class MyQ(Q):
 
 
 class BaseView(CartMixin, View):
+    """Отображение главной страницы"""
 
     def get(self, request, *args, **kwargs):
         categories = Category.objects.all()
@@ -48,6 +49,7 @@ class BaseView(CartMixin, View):
 
 
 class ProductDetailView(CartMixin, DetailView):
+    """Детальный просмотр товара"""
     model = Product
     context_object_name = 'product'
     template_name = 'product_detail.html'
@@ -62,13 +64,10 @@ class ProductDetailView(CartMixin, DetailView):
         return context
 
 
-class SizeDetailView(SizeMixin, DetailView):
-    def extra(self):
-        extra = Size.objects.all()
-        return dict(extra=extra)
 
 
 class CategoryDetailView(CartMixin, DetailView):
+    """Просмтор страницы категорий товара"""
     model = Category
     queryset = Category.objects.all()
     context_object_name = 'category'
@@ -109,6 +108,7 @@ class CategoryDetailView(CartMixin, DetailView):
 
 
 class AddToCartView(CartMixin, View):
+    """Добавление товара в корзину"""
 
     def get(self, request, *args, **kwargs):
         product_slug = kwargs.get('slug')
@@ -124,6 +124,7 @@ class AddToCartView(CartMixin, View):
 
 
 class DeleteFromCartView(CartMixin, View):
+    """Удаление товара из корзины"""
 
     def get(self, request, *args, **kwargs):
         product_slug = kwargs.get('slug')
@@ -139,6 +140,7 @@ class DeleteFromCartView(CartMixin, View):
 
 
 class ChangeQTYView(CartMixin, View):
+    """Изменение количества в корзине"""
 
     def post(self, request, *args, **kwargs):
         product_slug = kwargs.get('slug')
@@ -155,6 +157,7 @@ class ChangeQTYView(CartMixin, View):
 
 
 class CartView(CartMixin, View):
+    """Отображение корзины товаров"""
 
     def get(self, request, *args, **kwargs):
         categories = Category.objects.all()
@@ -170,6 +173,7 @@ class CartView(CartMixin, View):
 
 
 class CheckoutView(CartMixin, View):
+    """Отображение формы заказа"""
 
     def get(self, request, *args, **kwargs):
         categories = Category.objects.all()
