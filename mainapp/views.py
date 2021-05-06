@@ -183,6 +183,7 @@ class CheckoutView(CartMixin, View):
 
 
 class MakeOrderView(CartMixin, View):
+    """Создает заказ, проверяет остаток на складе"""
 
     @transaction.atomic
     def post(self, request, *args, **kwargs):
@@ -223,7 +224,7 @@ class MakeOrderView(CartMixin, View):
 
 
 class LoginView(CartMixin, View):
-
+    """Логин пользователя"""
     def get(self, request, *args, **kwargs):
         form = LoginForm(request.POST or None)
         context = {
@@ -253,7 +254,7 @@ class LoginView(CartMixin, View):
 
 
 class RegistrationView(CartMixin, View):
-
+    """Регистрация пользователя"""
     def get(self, request, *args, **kwargs):
         form = RegistrationForm(request.POST or None)
         context = {
@@ -263,6 +264,7 @@ class RegistrationView(CartMixin, View):
         return render(request, 'registration.html', context)
 
     def post(self, request, *args, **kwargs):
+        """Регистрация методом POST, и отправка письма с подтверждением на почту"""
         form = RegistrationForm(request.POST or None)
         if form.is_valid():
             new_user = form.save(commit=False)
@@ -303,6 +305,7 @@ class RegistrationView(CartMixin, View):
         return render(request, 'registration.html', context)
 
     def activate(self, request, uidb64, token):
+        """Функция проверки письма с токеном подтверждения"""
         form = RegistrationForm(request.POST or None)
         try:
             uid = urlsafe_base64_decode(uidb64).decode()
@@ -322,6 +325,7 @@ class RegistrationView(CartMixin, View):
 
 
 class ProfileView(CartMixin, View):
+    """Отображение профиля пользователя"""
 
     def get(self, request, *args, **kwargs):
         customer = Customer.objects.get(user=request.user)
